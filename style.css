@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+* {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ffffff; /* Couleur du texte */
+    position: relative;
+    background: linear-gradient(135deg, #0d0f2b, #1a237e, #0a122a);
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 1000%;
+    max-width: 100%;
+}
+
+h1 {
+    font-family: 'Courier New', monospace;
+    font-size: 42px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 30px;
+    color: #50fa7b; /* Couleur pour les variables */
+    margin-bottom: 40px;
+}
+
+p {
+    font-size: 18px;
+    color: #e2e8f0; /* Texte avec une couleur douce */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.footer {
+    margin-top: 50px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+#logoImage {
+    transition: transform 0.3s ease, border-radius 0.3s ease, background-color 0.3s ease;
+    max-width: 50%; /* Réduire la taille de l'image */
+    height: 50%;
+    margin-top: 20px;
+}
+
+#currentTime {
+    font-size: 18px;
+    color: #ff79c6; /* Couleur rose vif */
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: #282a36; /* Fond sombre */
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+.keyword {
+    color: violet; /* Couleur pour les mots-clés */
+}
+
+.function-name {
+    color: #8be9fd; /* Couleur pour les noms de fonctions */
+}
+
+.variable {
+    color: #50fa7b; /* Couleur pour les variables */
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: #ffffff;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
