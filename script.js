@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const githubButton = document.getElementById("githubButton");
-  const coursButton = document.getElementById("coursButton");
-  const PEAButton = document.getElementById("PEAButton");
   const image = document.getElementById("logoImage");
   const currentTimeElement = document.getElementById("currentTime");
   const h1Element = document.querySelector("h1");
@@ -20,8 +18,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
 
   addHoverEffect(githubButton);
-  addHoverEffect(coursButton);
-  addHoverEffect(PEAButton);
 
   image.addEventListener("mouseover", () => {
     image.style.transform = "scale(1.1)";
