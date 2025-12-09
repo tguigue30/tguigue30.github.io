@@ -1,91 +1,118 @@
-document.addEventListener("DOMContentLoaded", (event) => {
-  const githubButton = document.getElementById("githubButton");
-  const coursButton = document.getElementById("coursButton");
-  const image = document.getElementById("logoImage");
-  const currentTimeElement = document.getElementById("currentTime");
-  const h1Element = document.querySelector("h1");
-  const h2Element = document.querySelector("h2");
+// Smooth scroll + active link + small UI effects
 
-  function addHoverEffect(button) {
-    button.addEventListener("mouseover", () => {
-      button.style.borderRadius = "10px";
-      button.style.transform = "scale(1.2)";
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = [...document.querySelectorAll("main section")];
+  const header = document.querySelector(".site-header");
+  const navToggle = document.querySelector(".nav-toggle");
+  const siteNav = document.querySelector(".site-nav");
+  const themeToggle = document.querySelector(".theme-toggle");
+  const yearSpan = document.getElementById("year");
+  const fadeElements = document.querySelectorAll(".fade-in");
 
-    button.addEventListener("mouseout", () => {
-      button.style.borderRadius = "5px";
-      button.style.transform = "scale(1)";
-    });
+  // Current year in footer
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
   }
 
-  addHoverEffect(githubButton);
-  addHoverEffect(coursButton);
-
-  image.addEventListener("mouseover", () => {
-    image.style.transform = "scale(1.1)";
-    image.style.borderRadius = "5px";
-    image.style.backgroundColor = "white";
-  });
-
-  image.addEventListener("mouseout", () => {
-    image.style.transform = "scale(1)";
-    image.style.borderRadius = "0px";
-    image.style.backgroundColor = "transparent";
-  });
-
-  function updateTime() {
-    const now = new Date();
-    const day = now.getDate().toString().padStart(2, "0");
-    const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Les mois commencent à 0
-    const year = now.getFullYear();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    const seconds = now.getSeconds().toString().padStart(2, "0");
-    currentTimeElement.textContent = `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
-  }
-
-  setInterval(updateTime, 1000);
-  updateTime(); // Initial call to display time immediately
-
-  function typeWriter(element, text, delay = 100) {
-    let i = 0;
-    const cursor = document.createElement("span");
-    cursor.classList.add("cursor");
-    element.appendChild(cursor);
-
-    function type() {
-      if (i < text.length) {
-        const span = document.createElement("span");
-
-        if (text.substring(i, i + 5) === "print") {
-          span.classList.add("keyword");
-          span.textContent = "print";
-          i += 5;
-        } else if (text.substring(i, i + 4) === "Théo") {
-          span.classList.add("function-name");
-          span.textContent = "Théo";
-          i += 4;
-        } else if (text.substring(i, i + 6) === "Guigue") {
-          span.classList.add("variable");
-          span.textContent = "Guigue";
-          i += 6;
-        } else {
-          span.textContent = text.charAt(i);
-          i++;
+  // Smooth scroll for internal links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-
-        cursor.insertAdjacentElement("beforebegin", span);
-        setTimeout(type, delay);
-      } else {
-        cursor.remove();
+        // Close mobile nav
+        siteNav.classList.remove("open");
       }
+    });
+  });
+
+  // Highlight active nav link on scroll
+  const setActiveLinkOnScroll = () => {
+    const scrollPos = window.scrollY + 120;
+    let currentId = "hero";
+
+    sections.forEach((section) => {
+      if (
+        scrollPos >= section.offsetTop &&
+        scrollPos < section.offsetTop + section.offsetHeight
+      ) {
+        currentId = section.id;
+      }
+    });
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      link.classList.toggle("active", href === `#${currentId}`);
+    });
+  };
+
+  window.addEventListener("scroll", setActiveLinkOnScroll);
+  setActiveLinkOnScroll();
+
+  // Header shadow on scroll
+  const onScrollHeader = () => {
+    if (window.scrollY > 16) {
+      header.style.boxShadow = "0 14px 30px rgba(15, 23, 42, 0.7)";
+    } else {
+      header.style.boxShadow = "none";
     }
-    type();
+  };
+
+  window.addEventListener("scroll", onScrollHeader);
+  onScrollHeader();
+
+  // Mobile nav toggle
+  navToggle.addEventListener("click", () => {
+    siteNav.classList.toggle("open");
+  });
+
+  // Theme toggle (light / dark) with localStorage
+  const root = document.body;
+  const THEME_KEY = "site-theme";
+
+  const applyTheme = (theme) => {
+    if (theme === "light") {
+      root.classList.add("light-theme");
+    } else {
+      root.classList.remove("light-theme");
+    }
+  };
+
+  // Load cached theme or system preference
+  const storedTheme = window.localStorage.getItem(THEME_KEY);
+  if (storedTheme) {
+    applyTheme(storedTheme);
+  } else {
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)"
+    ).matches;
+    applyTheme(prefersLight ? "light" : "dark");
   }
 
-  // Clear the initial content and start typing effect
-  h1Element.innerHTML = "";
-  h2Element.innerHTML = "";
-  typeWriter(h1Element, "print('Théo Guigue')", 150); // Apparition lettre par lettre pour h1
-  typeWriter(h2Element, "#Student at the Montpellier University", 150);
+  themeToggle.addEventListener("click", () => {
+    const isLight = root.classList.contains("light-theme");
+    const newTheme = isLight ? "dark" : "light";
+    applyTheme(newTheme);
+    window.localStorage.setItem(THEME_KEY, newTheme);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  fadeElements.forEach((el) => observer.observe(el));
 });
