@@ -116,3 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeElements.forEach((el) => observer.observe(el));
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.querySelector(".contact-form");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", function () {
+      alert("Thank you! Your message has been sent.");
+      // Ne pas appeler preventDefault() ici pour laisser Formspree traiter la soumission
+    });
+  }
+});

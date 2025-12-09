@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ressources in Econometrics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- MathJax pour rendre le LaTeX -->
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+
+<body>
+  <!-- Header minimal réutilisant ton style -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo">
+        <span class="logo-symbol">Théo Guigue</span>
+        <span class="logo-text">Econometrician</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="index.html#hero" class="nav-link">Home</a>
+        <a href="index.html#research" class="nav-link">Research</a>
+        <a href="index.html#teaching" class="nav-link active">Teaching</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <button class="theme-toggle" aria-label="Toggle theme">☾</button>
+    </div>
+  </header>
+
+<main>
+  <section class="section">
+    <div class="container section-inner">
+
+      <div class="equation-hero fade-in">
+        <div class="equation-hero-inner">
+          <span class="equation-big">\( \hat{\beta} = (X'X)^{-1}X'y \)</span>
+        </div>
+      </div>
+
+      <div class="section-header fade-in">
+        <h2>Ressources in Econometrics</h2>
+        <p class="section-subtitle">
+          Lecture materials, tutorials and exam preparation for the third-year econometrics course.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Slides -->
+        <article class="card fade-in delay-1">
+          <div class="card-tag">Slides</div>
+          <h3 class="card-title">Lecture slides</h3>
+          <p class="card-text">
+            PDF versions of the lecture slides used throughout the course.
+          </p>
+          <div class="card-links">
+            <a href="#" class="card-link">All slides (zip)</a>
+            <a href="#" class="card-link">Lecture 1</a>
+            <a href="#" class="card-link">Lecture 2</a>
+          </div>
+        </article>
+
+        <!-- TD / Tutorials -->
+        <article class="card fade-in delay-2">
+          <div class="card-tag">Tutorials</div>
+          <h3 class="card-title">Problem sets & tutorials</h3>
+          <p class="card-text">
+            Exercises and solutions to practice econometric methods and reinforce understanding.
+          </p>
+          <div class="card-links">
+            <a href="#" class="card-link">Problem set 1 (PDF)</a>
+            <a href="#" class="card-link">Problem set 2 (PDF)</a>
+          </div>
+        </article>
+
+        <!-- Annales / Exams -->
+        <article class="card fade-in delay-3">
+          <div class="card-tag">Exams</div>
+          <h3 class="card-title">Past exams & mock tests</h3>
+          <p class="card-text">
+            Past exam papers and mock exams to help you prepare efficiently.
+          </p>
+          <div class="card-links">
+            <a href="#" class="card-link">Past exam 2023</a>
+            <a href="#" class="card-link">Past exam 2024</a>
+          </div>
+        </article>
+
+        <!-- Econometrics with Python -->
+        <article class="card fade-in delay-3">
+          <div class="card-tag">Code & data</div>
+          <h3 class="card-title">Econometrics with Python</h3>
+          <p class="card-text">
+            R scripts, templates and datasets used during tutorials and assignments.
+          </p>
+          <div class="card-links">
+            <a href="#" class="card-link">R scripts (zip)</a>
+            <a href="#" class="card-link">Datasets (zip)</a>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Théo Guigue. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Petit script pour l'année du footer si tu veux
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
