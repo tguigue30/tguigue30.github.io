@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Econometrics with Python</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Python scripts and demos for econometrics: residual diagnostics, regression utilities, and teaching resources." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo">
+        <span class="logo-symbol">Théo Guigue</span>
+        <span class="logo-text">Econometrician</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="site-nav">
+        <a href="index.html#hero" class="nav-link">Home</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#research" class="nav-link">Research</a>
+        <a href="index.html#teaching" class="nav-link active">Teaching</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <span class="theme-icon">☾</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container section-inner">
+        <div class="section-header fade-in">
+          <h2>Econometrics with Python</h2>
+          <p class="section-subtitle">
+            Python scripts, utilities and demos used in my econometrics teaching and research workflow.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <!-- Core scripts -->
+          <article class="card fade-in delay-1">
+            <div class="card-tag">Core scripts</div>
+            <h3 class="card-title">Regression & residual diagnostics</h3>
+            <p class="card-text">
+              Central Python utilities for estimating linear models and running standard residual diagnostics
+              in one go (normality, autocorrelation, heteroscedasticity, etc.).
+            </p>
+            <ul class="card-meta-list">
+              <li>OLS estimation helpers</li>
+              <li>Batch residual tests</li>
+              <li>Clean, reusable functions</li>
+            </ul>
+            <div class="card-links">
+              <!-- Adapte les chemins à ta structure de dossiers -->
+              <a href="code/regression.py" class="card-link" download>regression.py</a>
+              <a href="econometrics_python_scripts/residus.py" class="card-link" download>residus.py</a>
+              <a href="code/econometrics_core.zip" class="card-link">All core scripts (zip)</a>
+            </div>
+          </article>
+
+          <!-- Demo notebooks -->
+          <article class="card fade-in delay-2">
+            <div class="card-tag">Demos</div>
+            <h3 class="card-title">Step-by-step examples</h3>
+            <p class="card-text">
+              Jupyter notebooks illustrating how to use the scripts on real datasets: from simple OLS
+              to multiple regression with full diagnostics and plots.
+            </p>
+            <ul class="card-meta-list">
+              <li>Intro OLS demo</li>
+              <li>Multiple regression & diagnostics</li>
+              <li>Exportable as HTML or PDF</li>
+            </ul>
+            <div class="card-links">
+              <a href="notebooks/ols_demo.ipynb" class="card-link">OLS demo (ipynb)</a>
+              <a href="notebooks/multiple_regression_demo.ipynb" class="card-link">Multiple regression (ipynb)</a>
+              <a href="notebooks/python_econometrics_demos.zip" class="card-link">All demos (zip)</a>
+            </div>
+          </article>
+
+          <!-- Plots & visual diagnostics -->
+          <article class="card fade-in delay-3">
+            <div class="card-tag">Plots</div>
+            <h3 class="card-title">Visual diagnostics & plots</h3>
+            <p class="card-text">
+              Helper functions for residual plots, QQ-plots, leverage/influence diagnostics and other
+              visual tools for model checking.
+            </p>
+            <ul class="card-meta-list">
+              <li>Residual vs fitted plots</li>
+              <li>QQ-plots</li>
+              <li>Leverage & influence graphs</li>
+            </ul>
+            <div class="card-links">
+              <a href="code/plots_diagnostics.py" class="card-link" download>plots_diagnostics.py</a>
+              <a href="notebooks/diagnostics_demo.ipynb" class="card-link">Diagnostics demo (ipynb)</a>
+            </div>
+          </article>
+
+          <!-- Extra utilities / templates -->
+          <article class="card fade-in delay-3">
+            <div class="card-tag">Templates</div>
+            <h3 class="card-title">Project templates & utilities</h3>
+            <p class="card-text">
+              Small utilities and project templates to structure econometrics work in Python:
+              data loading, cleaning pipelines, and configuration files.
+            </p>
+            <ul class="card-meta-list">
+              <li>Project skeleton</li>
+              <li>Config file example</li>
+              <li>Data loading helpers</li>
+            </ul>
+            <div class="card-links">
+              <a href="code/project_template.zip" class="card-link">Project template (zip)</a>
+              <a href="code/utils_data.py" class="card-link" download>utils_data.py</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Théo Guigue. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="index.html#contact">Contact</a>
+        <a href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=6dadedoAAAAJ&hl=fr" target="_blank" rel="noreferrer">Google Scholar</a>
+        <a href="https://fr.linkedin.com/in/theoguigue" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://orcid.org/0009-0003-2305-3455" target="_blank" rel="noreferrer">OrcID</a>
+        <a href="https://cv.hal.science/theoguigue" target="_blank" rel="noreferrer">HAL</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
