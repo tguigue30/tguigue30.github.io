@@ -3,178 +3,213 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cours Git & GitHub — Fiche pratique</title>
+  <title>Cours — Git & GitHub</title>
 
-  <!-- Ton CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- (Optionnel) Police monospace sympa -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <header class="page-header">
-    <h1>Cours Git & GitHub</h1>
-    <p class="subtitle">Commandes essentielles + workflows pour travailler proprement.</p>
+  <!-- HEADER (même structure que ton site) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <span class="logo-symbol">TG</span>
+        <span class="logo-text">Cours</span>
+      </a>
+
+      <nav class="site-nav" id="siteNav">
+        <a class="nav-link active" href="cours-git.html">Git</a>
+        <a class="nav-link" href="index.html#teaching">Teaching</a>
+        <a class="nav-link" href="index.html#research">Research</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">☼</button>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
   </header>
 
-  <main class="container">
-    <nav class="toc">
-      <h2>Sommaire</h2>
-      <ul>
-        <li><a href="#prerequis">Pré-requis</a></li>
-        <li><a href="#init">1. Initialiser un dépôt</a></li>
-        <li><a href="#clone">2. Cloner un dépôt</a></li>
-        <li><a href="#cycle">3. Cycle add / commit / push</a></li>
-        <li><a href="#branches">4. Branches & merge</a></li>
-        <li><a href="#pull">5. Pull, conflits</a></li>
-        <li><a href="#githubpages">6. GitHub Pages (mini check)</a></li>
-        <li><a href="#cheatsheet">Cheat sheet</a></li>
-      </ul>
-    </nav>
+  <!-- HERO (mêmes gradients / vibe) -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="hero-overline">Cours pratique</div>
+        <h1>Git & <span class="accent">GitHub</span></h1>
+        <p class="hero-subtitle">
+          Commandes essentielles, workflow propre, et encadrés copiables (pour tes étudiants).
+        </p>
 
-    <section id="prerequis" class="section">
-      <h2>Pré-requis</h2>
-      <ul>
-        <li>Git installé : <code>git --version</code></li>
-        <li>Un compte GitHub</li>
-        <li>Terminal (macOS/Linux) ou PowerShell (Windows)</li>
-      </ul>
-    </section>
-
-    <section id="init" class="section">
-      <h2>1) Initialiser un dépôt</h2>
-      <p>Crée un dépôt Git dans un dossier existant :</p>
-
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Initialisation</span>
-          <button class="copy-btn" data-copy-target="code-init" type="button">📋 Copier</button>
+        <div class="hero-actions">
+          <a class="btn primary" href="#bases">Commencer</a>
+          <a class="btn ghost" href="#cheatsheet">Cheat sheet</a>
         </div>
-        <pre class="code-block"><code id="code-init">mkdir mon-projet
+
+        <div class="hero-meta">
+          <span>Terminal</span>
+          <span>Workflow</span>
+          <span>Branches</span>
+          <span>Conflits</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <div class="hero-card-title">Objectif</div>
+          <div class="hero-card-main">Être autonome sur Git</div>
+          <div class="hero-card-sub">sans “casser” le dépôt.</div>
+
+          <div class="hero-pill-row">
+            <span class="pill">init</span>
+            <span class="pill">clone</span>
+            <span class="pill">add/commit</span>
+            <span class="pill">push/pull</span>
+            <span class="pill">branch/merge</span>
+          </div>
+
+          <a class="hero-card-link" href="#bases">Aller au cours →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTIONS -->
+  <section id="bases" class="section section-alt">
+    <div class="container section-inner">
+      <div class="section-header">
+        <h2>1) Les bases</h2>
+        <p class="section-subtitle">Initialiser un dépôt, vérifier l’état, comprendre ce qui est suivi.</p>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-tag">Initialisation</div>
+          <h3 class="card-title">Créer un dépôt</h3>
+          <p class="card-text">À faire une seule fois dans le dossier du projet.</p>
+
+          <div class="codebox">
+            <div class="codebox-head">
+              <span class="codebox-label">Commandes</span>
+              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-init">Copier</button>
+            </div>
+            <pre class="codebox-pre"><code id="code-init">mkdir mon-projet
 cd mon-projet
 git init
 git status</code></pre>
-      </div>
+          </div>
+        </article>
 
-      <p class="hint">💡 <code>git status</code> te dit toujours “où tu en es”.</p>
-    </section>
+        <article class="card">
+          <div class="card-tag">Clonage</div>
+          <h3 class="card-title">Récupérer un dépôt</h3>
+          <p class="card-text">Pour travailler depuis une URL GitHub.</p>
 
-    <section id="clone" class="section">
-      <h2>2) Cloner un dépôt</h2>
-      <p>Récupérer un dépôt existant depuis GitHub :</p>
-
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Clone</span>
-          <button class="copy-btn" data-copy-target="code-clone" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-clone">git clone https://github.com/USER/NOM_DU_REPO.git
-cd NOM_DU_REPO
+          <div class="codebox">
+            <div class="codebox-head">
+              <span class="codebox-label">Commandes</span>
+              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-clone">Copier</button>
+            </div>
+            <pre class="codebox-pre"><code id="code-clone">git clone https://github.com/USER/REPO.git
+cd REPO
 git status</code></pre>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="cycle" class="section">
-      <h2>3) Cycle classique : add → commit → push</h2>
-      <p>Workflow minimal pour envoyer tes changements :</p>
+  <section class="section">
+    <div class="container section-inner">
+      <div class="section-header">
+        <h2>2) Workflow quotidien</h2>
+        <p class="section-subtitle">Le cycle minimal : add → commit → push, sans se tromper.</p>
+      </div>
 
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Add / Commit / Push</span>
-          <button class="copy-btn" data-copy-target="code-cycle" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-cycle">git status
+      <article class="card">
+        <div class="card-tag">Cycle</div>
+        <h3 class="card-title">Add / Commit / Push</h3>
+
+        <div class="codebox">
+          <div class="codebox-head">
+            <span class="codebox-label">Commandes</span>
+            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cycle">Copier</button>
+          </div>
+          <pre class="codebox-pre"><code id="code-cycle">git status
 git add .
-git commit -m "Message clair sur ce que j’ai changé"
+git commit -m "Message clair"
 git push</code></pre>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container section-inner">
+      <div class="section-header">
+        <h2>3) Branches & merge</h2>
+        <p class="section-subtitle">Isoler une fonctionnalité, puis fusionner proprement.</p>
       </div>
 
-      <p class="hint">✅ Bonne pratique : commits petits et messages explicites.</p>
-    </section>
-
-    <section id="branches" class="section">
-      <h2>4) Branches & merge</h2>
-      <p>Créer une branche, bosser dessus, puis fusionner :</p>
-
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Branches</span>
-          <button class="copy-btn" data-copy-target="code-branches" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-branches">git branch
-git checkout -b feature/ma-fonctionnalite
+      <article class="card">
+        <div class="codebox">
+          <div class="codebox-head">
+            <span class="codebox-label">Workflow</span>
+            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-branch">Copier</button>
+          </div>
+          <pre class="codebox-pre"><code id="code-branch">git checkout -b feature/ma-feature
 
 # ... modifications ...
 
 git add .
-git commit -m "Ajoute la fonctionnalité X"
+git commit -m "Ajoute X"
 git checkout main
-git merge feature/ma-fonctionnalite</code></pre>
-      </div>
-    </section>
-
-    <section id="pull" class="section">
-      <h2>5) Pull & conflits</h2>
-      <p>Avant de pousser, pense à récupérer les changements distants :</p>
-
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Pull</span>
-          <button class="copy-btn" data-copy-target="code-pull" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-pull">git pull
-# si conflit : Git te le dit, tu ouvres les fichiers, tu résous, puis :
-git add .
-git commit -m "Résolution de conflit"
+git merge feature/ma-feature
 git push</code></pre>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="cheatsheet" class="section">
+    <div class="container section-inner">
+      <div class="section-header">
+        <h2>Cheat sheet</h2>
+        <p class="section-subtitle">Les commandes qu’on tape tout le temps.</p>
       </div>
 
-      <p class="hint">🧯 Un conflit = Git ne sait pas choisir entre deux versions. Tu tranches.</p>
-    </section>
-
-    <section id="githubpages" class="section">
-      <h2>6) GitHub Pages (mini check)</h2>
-      <p>Pour un repo de site statique, assure-toi que <code>index.html</code> est à la racine (ou dans <code>/docs</code> si configuré ainsi).</p>
-
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Vérifier les fichiers</span>
-          <button class="copy-btn" data-copy-target="code-pages" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-pages">ls
-# tu dois voir index.html à la racine
-# puis :
-git add .
-git commit -m "Update website"
-git push</code></pre>
-      </div>
-    </section>
-
-    <section id="cheatsheet" class="section">
-      <h2>Cheat sheet</h2>
-      <div class="code-card">
-        <div class="code-card__header">
-          <span class="code-card__title">Commandes utiles</span>
-          <button class="copy-btn" data-copy-target="code-cheat" type="button">📋 Copier</button>
-        </div>
-        <pre class="code-block"><code id="code-cheat">git status
+      <article class="card">
+        <div class="codebox">
+          <div class="codebox-head">
+            <span class="codebox-label">À retenir</span>
+            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cheat">Copier</button>
+          </div>
+          <pre class="codebox-pre"><code id="code-cheat">git status
 git log --oneline --graph --decorate
 git diff
 git remote -v
 git fetch
 git pull
 git push</code></pre>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© Ton site — Cours Git</span>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="#bases">Haut</a>
       </div>
-    </section>
-  </main>
+    </div>
+  </footer>
 
   <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Ton JS -->
   <script src="script.js"></script>
 </body>
 </html>

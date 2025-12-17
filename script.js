@@ -128,58 +128,81 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Boutons "Copier"
 document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".copy-btn");
-  buttons.forEach((btn) => {
+  // Copy buttons
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const targetId = btn.getAttribute("data-copy-target");
       const codeEl = document.getElementById(targetId);
-
-      if (!codeEl) {
-        showToast("Impossible de copier (bloc introuvable).");
-        return;
-      }
+      if (!codeEl) return showToast("Bloc introuvable.");
 
       const text = codeEl.innerText;
 
       try {
         await navigator.clipboard.writeText(text);
-        showToast("Copié dans le presse-papiers ✅");
-      } catch (err) {
-        // Fallback ancien navigateur
-        fallbackCopy(text);
+        pulseCopied(btn);
+        showToast("Copié");
+      } catch {
+        // fallback
+        if (fallbackCopy(text)) {
+          pulseCopied(btn);
+          showToast("Copié");
+        } else {
+          showToast("Copie impossible.");
+        }
       }
     });
   });
+
+  // (Optionnel) mobile nav toggle si ton site l'utilise déjà
+  const navToggle = document.getElementById("navToggle");
+  const siteNav = document.getElementById("siteNav");
+  if (navToggle && siteNav) {
+    navToggle.addEventListener("click", () => siteNav.classList.toggle("open"));
+  }
+
+  // (Optionnel) theme toggle si ton site l'utilise déjà
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-theme");
+    });
+  }
 });
 
 function fallbackCopy(text) {
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  document.body.appendChild(ta);
-  ta.select();
   try {
-    document.execCommand("copy");
-    showToast("Copié dans le presse-papiers ✅");
-  } catch (e) {
-    showToast("Copie impossible (navigateur).");
-  } finally {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
     document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
   }
 }
 
-// Toast simple
+function pulseCopied(btn) {
+  const original = btn.textContent;
+  btn.textContent = "Copié";
+  btn.classList.add("copy-btn--ok");
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.classList.remove("copy-btn--ok");
+  }, 900);
+}
+
 let toastTimer = null;
 function showToast(message) {
   const toast = document.getElementById("toast");
   if (!toast) return;
-
   toast.textContent = message;
   toast.classList.add("toast--show");
-
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.remove("toast--show");
-  }, 1800);
+  toastTimer = setTimeout(() => toast.classList.remove("toast--show"), 1400);
 }
