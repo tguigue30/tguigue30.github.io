@@ -941,3 +941,73 @@ body.light-theme textarea {
   transform: translateY(-2px);
 }
 
+/* Layout simple */
+.container { max-width: 980px; margin: 0 auto; padding: 24px; }
+.page-header { max-width: 980px; margin: 0 auto; padding: 24px; }
+.subtitle { opacity: 0.8; }
+
+.toc {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0 28px;
+}
+
+.section { margin: 32px 0; }
+
+/* Code cards */
+.code-card {
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+.code-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.code-card__title { font-weight: 600; }
+
+.code-block {
+  margin: 0;
+  padding: 14px 12px;
+  overflow-x: auto;
+  font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* Bouton copier */
+.copy-btn {
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+/* Petit encart */
+.hint { opacity: 0.85; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  transition: opacity 180ms ease;
+}
+
+.toast--show { opacity: 1; }
+
+

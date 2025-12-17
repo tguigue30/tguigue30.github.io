@@ -127,3 +127,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Boutons "Copier"
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".copy-btn");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const targetId = btn.getAttribute("data-copy-target");
+      const codeEl = document.getElementById(targetId);
+
+      if (!codeEl) {
+        showToast("Impossible de copier (bloc introuvable).");
+        return;
+      }
+
+      const text = codeEl.innerText;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Copié dans le presse-papiers ✅");
+      } catch (err) {
+        // Fallback ancien navigateur
+        fallbackCopy(text);
+      }
+    });
+  });
+});
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand("copy");
+    showToast("Copié dans le presse-papiers ✅");
+  } catch (e) {
+    showToast("Copie impossible (navigateur).");
+  } finally {
+    document.body.removeChild(ta);
+  }
+}
+
+// Toast simple
+let toastTimer = null;
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("toast--show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("toast--show");
+  }, 1800);
+}
