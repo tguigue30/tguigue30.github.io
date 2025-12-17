@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cours Git & GitHub — Fiche pratique</title>
+
+  <!-- Ton CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- (Optionnel) Police monospace sympa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>Cours Git & GitHub</h1>
+    <p class="subtitle">Commandes essentielles + workflows pour travailler proprement.</p>
+  </header>
+
+  <main class="container">
+    <nav class="toc">
+      <h2>Sommaire</h2>
+      <ul>
+        <li><a href="#prerequis">Pré-requis</a></li>
+        <li><a href="#init">1. Initialiser un dépôt</a></li>
+        <li><a href="#clone">2. Cloner un dépôt</a></li>
+        <li><a href="#cycle">3. Cycle add / commit / push</a></li>
+        <li><a href="#branches">4. Branches & merge</a></li>
+        <li><a href="#pull">5. Pull, conflits</a></li>
+        <li><a href="#githubpages">6. GitHub Pages (mini check)</a></li>
+        <li><a href="#cheatsheet">Cheat sheet</a></li>
+      </ul>
+    </nav>
+
+    <section id="prerequis" class="section">
+      <h2>Pré-requis</h2>
+      <ul>
+        <li>Git installé : <code>git --version</code></li>
+        <li>Un compte GitHub</li>
+        <li>Terminal (macOS/Linux) ou PowerShell (Windows)</li>
+      </ul>
+    </section>
+
+    <section id="init" class="section">
+      <h2>1) Initialiser un dépôt</h2>
+      <p>Crée un dépôt Git dans un dossier existant :</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Initialisation</span>
+          <button class="copy-btn" data-copy-target="code-init" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-init">mkdir mon-projet
+cd mon-projet
+git init
+git status</code></pre>
+      </div>
+
+      <p class="hint">💡 <code>git status</code> te dit toujours “où tu en es”.</p>
+    </section>
+
+    <section id="clone" class="section">
+      <h2>2) Cloner un dépôt</h2>
+      <p>Récupérer un dépôt existant depuis GitHub :</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Clone</span>
+          <button class="copy-btn" data-copy-target="code-clone" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-clone">git clone https://github.com/USER/NOM_DU_REPO.git
+cd NOM_DU_REPO
+git status</code></pre>
+      </div>
+    </section>
+
+    <section id="cycle" class="section">
+      <h2>3) Cycle classique : add → commit → push</h2>
+      <p>Workflow minimal pour envoyer tes changements :</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Add / Commit / Push</span>
+          <button class="copy-btn" data-copy-target="code-cycle" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-cycle">git status
+git add .
+git commit -m "Message clair sur ce que j’ai changé"
+git push</code></pre>
+      </div>
+
+      <p class="hint">✅ Bonne pratique : commits petits et messages explicites.</p>
+    </section>
+
+    <section id="branches" class="section">
+      <h2>4) Branches & merge</h2>
+      <p>Créer une branche, bosser dessus, puis fusionner :</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Branches</span>
+          <button class="copy-btn" data-copy-target="code-branches" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-branches">git branch
+git checkout -b feature/ma-fonctionnalite
+
+# ... modifications ...
+
+git add .
+git commit -m "Ajoute la fonctionnalité X"
+git checkout main
+git merge feature/ma-fonctionnalite</code></pre>
+      </div>
+    </section>
+
+    <section id="pull" class="section">
+      <h2>5) Pull & conflits</h2>
+      <p>Avant de pousser, pense à récupérer les changements distants :</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Pull</span>
+          <button class="copy-btn" data-copy-target="code-pull" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-pull">git pull
+# si conflit : Git te le dit, tu ouvres les fichiers, tu résous, puis :
+git add .
+git commit -m "Résolution de conflit"
+git push</code></pre>
+      </div>
+
+      <p class="hint">🧯 Un conflit = Git ne sait pas choisir entre deux versions. Tu tranches.</p>
+    </section>
+
+    <section id="githubpages" class="section">
+      <h2>6) GitHub Pages (mini check)</h2>
+      <p>Pour un repo de site statique, assure-toi que <code>index.html</code> est à la racine (ou dans <code>/docs</code> si configuré ainsi).</p>
+
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Vérifier les fichiers</span>
+          <button class="copy-btn" data-copy-target="code-pages" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-pages">ls
+# tu dois voir index.html à la racine
+# puis :
+git add .
+git commit -m "Update website"
+git push</code></pre>
+      </div>
+    </section>
+
+    <section id="cheatsheet" class="section">
+      <h2>Cheat sheet</h2>
+      <div class="code-card">
+        <div class="code-card__header">
+          <span class="code-card__title">Commandes utiles</span>
+          <button class="copy-btn" data-copy-target="code-cheat" type="button">📋 Copier</button>
+        </div>
+        <pre class="code-block"><code id="code-cheat">git status
+git log --oneline --graph --decorate
+git diff
+git remote -v
+git fetch
+git pull
+git push</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Ton JS -->
+  <script src="script.js"></script>
+</body>
+</html>
