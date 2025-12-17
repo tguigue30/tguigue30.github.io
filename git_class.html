@@ -32,184 +32,621 @@
     </div>
   </header>
 
-  <!-- HERO (mêmes gradients / vibe) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="container hero-inner">
       <div>
         <div class="hero-overline">Cours pratique</div>
         <h1>Git & <span class="accent">GitHub</span></h1>
         <p class="hero-subtitle">
-          Commandes essentielles, workflow propre, et encadrés copiables (pour tes étudiants).
+          Comprendre les concepts (repo, branches, README, remote), puis maîtriser les commandes sans casser le dépôt.
         </p>
 
         <div class="hero-actions">
-          <a class="btn primary" href="#bases">Commencer</a>
+          <a class="btn primary" href="#concepts">Comprendre</a>
           <a class="btn ghost" href="#cheatsheet">Cheat sheet</a>
         </div>
 
         <div class="hero-meta">
-          <span>Terminal</span>
-          <span>Workflow</span>
+          <span>Concepts</span>
+          <span>Remote ↔ Local</span>
           <span>Branches</span>
-          <span>Conflits</span>
+          <span>Pull Requests</span>
         </div>
       </div>
 
       <div class="hero-card">
         <div class="hero-card-inner">
           <div class="hero-card-title">Objectif</div>
-          <div class="hero-card-main">Être autonome sur Git</div>
-          <div class="hero-card-sub">sans “casser” le dépôt.</div>
+          <div class="hero-card-main">Workflow propre</div>
+          <div class="hero-card-sub">et autonomie complète.</div>
 
           <div class="hero-pill-row">
-            <span class="pill">init</span>
-            <span class="pill">clone</span>
+            <span class="pill">init/clone</span>
             <span class="pill">add/commit</span>
-            <span class="pill">push/pull</span>
+            <span class="pill">remote</span>
+            <span class="pill">fetch/pull/push</span>
             <span class="pill">branch/merge</span>
           </div>
 
-          <a class="hero-card-link" href="#bases">Aller au cours →</a>
+          <a class="hero-card-link" href="#concepts">Aller au cours →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTIONS -->
-  <section id="bases" class="section section-alt">
+  <!-- =========================
+       0) CONCEPTS (AVANT COMMANDES)
+       ========================= -->
+  <section id="concepts" class="section section-alt">
     <div class="container section-inner">
       <div class="section-header">
-        <h2>1) Les bases</h2>
-        <p class="section-subtitle">Initialiser un dépôt, vérifier l’état, comprendre ce qui est suivi.</p>
+        <h2>0) Comprendre Git vs GitHub</h2>
+        <p class="section-subtitle">
+          Git = le moteur de versioning (sur ton ordinateur). GitHub = la plateforme (hébergement + collaboration).
+        </p>
       </div>
 
       <div class="cards-grid">
         <article class="card">
-          <div class="card-tag">Initialisation</div>
-          <h3 class="card-title">Créer un dépôt</h3>
-          <p class="card-text">À faire une seule fois dans le dossier du projet.</p>
-
-          <div class="codebox">
-            <div class="codebox-head">
-              <span class="codebox-label">Commandes</span>
-              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-init">Copier</button>
-            </div>
-            <pre class="codebox-pre"><code id="code-init">mkdir mon-projet
-cd mon-projet
-git init
-git status</code></pre>
-          </div>
+          <div class="card-tag">Définition</div>
+          <h3 class="card-title">Git (local)</h3>
+          <p class="card-text">
+            Git enregistre l’historique d’un projet sous forme de <b>commits</b>. Tu peux revenir en arrière,
+            créer des <b>branches</b>, comparer des versions, fusionner des travaux.
+          </p>
+          <ul class="card-text">
+            <li><b>Travail local</b> : dossier de ton projet + répertoire <code>.git</code></li>
+            <li><b>États</b> : fichiers modifiés, index (staging), commits</li>
+            <li><b>Branches</b> : pointeurs vers des commits</li>
+          </ul>
         </article>
 
         <article class="card">
-          <div class="card-tag">Clonage</div>
-          <h3 class="card-title">Récupérer un dépôt</h3>
-          <p class="card-text">Pour travailler depuis une URL GitHub.</p>
+          <div class="card-tag">Définition</div>
+          <h3 class="card-title">GitHub (distant)</h3>
+          <p class="card-text">
+            GitHub héberge des dépôts Git “sur internet” et ajoute des outils :
+            <b>issues</b>, <b>pull requests</b>, revue de code, <b>actions</b> (CI/CD), permissions, pages web…
+          </p>
+          <ul class="card-text">
+            <li><b>Collaboration</b> : PR, reviews, discussions</li>
+            <li><b>Automatisation</b> : GitHub Actions</li>
+            <li><b>Publication</b> : Releases, GitHub Pages</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">Schéma</div>
+          <h3 class="card-title">Git ↔ GitHub (TikZ)</h3>
+          <p class="card-text">À copier dans un fichier LaTeX (TikZ). Montre local / distant et le flux.</p>
 
           <div class="codebox">
             <div class="codebox-head">
-              <span class="codebox-label">Commandes</span>
-              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-clone">Copier</button>
+              <span class="codebox-label">TikZ — Git vs GitHub</span>
+              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="tikz-git-github">Copier</button>
             </div>
-            <pre class="codebox-pre"><code id="code-clone">git clone https://github.com/USER/REPO.git
-cd REPO
-git status</code></pre>
+            <pre class="codebox-pre"><code id="tikz-git-github">\begin{tikzpicture}[
+  font=\small, >=Latex,
+  box/.style={rounded corners=2mm, draw=black!60, fill=black!2, thick, align=center, inner sep=6pt},
+  arrow/.style={->, thick}
+]
+\node[box] (local) {Ton ordinateur\\\textbf{Git (local)}\\repo + .git\\commits, branches};
+\node[box, right=28mm of local] (remote) {Internet\\\textbf{GitHub (distant)}\\repo hébergé\\PR, Issues, Actions};
+
+\draw[arrow] (local) -- node[above]{\texttt{git push}} (remote);
+\draw[arrow] (remote) -- node[below]{\texttt{git fetch / pull}} (local);
+\end{tikzpicture}</code></pre>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- =========================
+       1) ANATOMIE D'UN DEPOT GITHUB
+       ========================= -->
+  <section id="repo" class="section">
     <div class="container section-inner">
       <div class="section-header">
-        <h2>2) Workflow quotidien</h2>
-        <p class="section-subtitle">Le cycle minimal : add → commit → push, sans se tromper.</p>
+        <h2>1) Comment fonctionne un dépôt GitHub</h2>
+        <p class="section-subtitle">
+          Savoir lire un dépôt : branches, README, commits, tags, releases, PR, issues.
+        </p>
       </div>
 
-      <article class="card">
-        <div class="card-tag">Cycle</div>
-        <h3 class="card-title">Add / Commit / Push</h3>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-tag">Structure</div>
+          <h3 class="card-title">Anatomie d’un dépôt</h3>
+          <ul class="card-text">
+            <li><b>Code</b> : fichiers + dossiers du projet</li>
+            <li><b>README.md</b> : page d’accueil du dépôt (quoi / installation / usage)</li>
+            <li><b>.gitignore</b> : fichiers à ne jamais versionner (cache, outputs, secrets)</li>
+            <li><b>LICENSE</b> : conditions de réutilisation</li>
+            <li><b>Branches</b> : <code>main</code> + branches de features/fix</li>
+            <li><b>Tags / Releases</b> : versions publiées (v1.0.0…)</li>
+          </ul>
+        </article>
 
-        <div class="codebox">
-          <div class="codebox-head">
-            <span class="codebox-label">Commandes</span>
-            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cycle">Copier</button>
+        <article class="card">
+          <div class="card-tag">README</div>
+          <h3 class="card-title">README : le minimum</h3>
+          <p class="card-text">Un bon README répond en 30 secondes : “C’est quoi ? Comment j’installe ? Comment j’utilise ?”</p>
+
+          <div class="codebox">
+            <div class="codebox-head">
+              <span class="codebox-label">Template README.md</span>
+              <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="readme-template">Copier</button>
+            </div>
+            <pre class="codebox-pre"><code id="readme-template"># Nom du projet
+
+## Objectif
+Une phrase claire sur le but du projet.
+
+## Installation
+```bash
+pip install -r requirements.txt
+```
+
+## Utilisation
+```bash
+python main.py --input data.txt
+```
+
+## Structure du dépôt
+- `data/` : données brutes
+- `src/` : code source
+- `notebooks/` : notebooks Jupyter
+
+## Licence
+Ce projet est sous licence MIT.</code></pre>
           </div>
-          <pre class="codebox-pre"><code id="code-cycle">git status
+        </article>
+    <article class="card">
+      <div class="card-tag">Collaboration</div>
+      <h3 class="card-title">Issues & Pull Requests</h3>
+      <p class="card-text">
+        <b>Issue</b> = ticket (bug, idée, tâche). <b>PR</b> = proposition de modification vers une branche cible (souvent main),
+        avec discussion/review puis fusion.
+      </p>
+      <ul class="card-text">
+        <li>Workflow standard : Issue → branche → commits → PR → review → merge</li>
+        <li>Avantage : historique propre + discussion centralisée</li>
+      </ul>
+    </article>
+  </div>
+</div>
+
+    <article class="card">
+      <div class="card-tag">Collaboration</div>
+      <h3 class="card-title">Issues & Pull Requests</h3>
+      <p class="card-text">
+        <b>Issue</b> = ticket (bug, idée, tâche). <b>PR</b> = proposition de modification vers une branche cible (souvent main),
+        avec discussion/review puis fusion.
+      </p>
+      <ul class="card-text">
+        <li>Workflow standard : Issue → branche → commits → PR → review → merge</li>
+        <li>Avantage : historique propre + discussion centralisée</li>
+      </ul>
+    </article>
+  </div>
+</div>
+
+  <article class="card">
+    <div class="card-tag">Schéma</div>
+    <h3 class="card-title">Working / Staging / Commits (TikZ)</h3>
+
+    <div class="codebox">
+      <div class="codebox-head">
+        <span class="codebox-label">TikZ — Les 3 zones</span>
+        <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="tikz-3zones">Copier</button>
+      </div>
+      <pre class="codebox-pre"><code id="tikz-3zones">\begin{tikzpicture}[
+font=\small, >=Latex,
+box/.style={rounded corners=2mm, draw=black!60, fill=black!2, thick, align=center, inner sep=8pt},
+arrow/.style={->, thick}
+]
+\node[box] (wd) {Working directory\(tes fichiers)};
+\node[box, right=14mm of wd] (st) {Staging area\(index)};
+\node[box, right=14mm of st] (repo) {Repository\(commits)};
+\draw[arrow] (wd) -- node[above]{\texttt{git add}} (st);
+\draw[arrow] (st) -- node[above]{\texttt{git commit}} (repo);
+\draw[arrow, bend left=35] (repo) to node[below]{\texttt{git checkout / restore}} (wd);
+\end{tikzpicture}</code></pre>
+</div>
+
+    <p class="card-text">
+      <b>Idée clé :</b> <code>git add</code> ne “sauvegarde” pas, il <b>prépare</b>.
+      Le vrai “snapshot” de version, c’est <code>git commit</code>.
+    </p>
+  </article>
+</div>
+
+    <p class="card-text">
+      <b>Idée clé :</b> <code>git add</code> ne “sauvegarde” pas, il <b>prépare</b>.
+      Le vrai “snapshot” de version, c’est <code>git commit</code>.
+    </p>
+  </article>
+</div>
+
+  <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Vocabulaire</div>
+      <h3 class="card-title">Remote, origin, upstream</h3>
+      <p class="card-text">
+        Un <b>remote</b> = une URL nommée vers un dépôt distant.
+        Par convention :
+      </p>
+      <ul class="card-text">
+        <li><b>origin</b> : le remote principal (souvent ton dépôt GitHub)</li>
+        <li><b>upstream</b> : le dépôt source si tu as “forké” un projet</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="card-tag">Lecture</div>
+      <h3 class="card-title">Lire ce qu’il se passe entre remote et local</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Commandes “diagnostic”</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-read-remote">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-read-remote"># Où suis-je ?
+
+          git status
+
+          # Quels remotes sont configurés ?
+          git remote -v
+
+          # Quelles branches existent localement et à distance ?
+          git branch -a
+
+          # Quelles branches distantes sont connues localement ?
+          git branch -r
+
+          # Tout l'historique des commits (local + remote)
+          git log --oneline --all --graph --decorate</code></pre>
+      </div>
+    </article>
+
+        <article class="card">
+      <div class="card-tag">Fetch vs Pull</div>
+      <h3 class="card-title">fetch ≠ pull</h3>
+      <p class="card-text">
+        <b>fetch</b> met à jour ta connaissance du remote (sans toucher tes fichiers).
+        <b>pull</b> = fetch + merge (ou rebase) → ça modifie ta branche locale.
+      </p>
+
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Fetch / Pull</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-fetch-pull">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-fetch-pull">git fetch origin
+
+# Voir ce qui a changé (après fetch)
+git log --oneline --decorate --grah --all
+
+# Intégrer les changements dans la branche courante
+git pull</code></pre>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-tag">Schéma</div>
+      <h3 class="card-title">Remote ↔ Local (TikZ)</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">TikZ — Remote & tracking branches</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="tikz-remote">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="tikz-remote">\begin{tikzpicture}[
+font=\small, >=Latex,
+box/.style={rounded corners=2mm, draw=black!60, fill=black!2, thick, align=center, inner sep=7pt},
+arrow/.style={->, thick}
+]
+\node[box] (gh) {GitHub\origin/main};
+\node[box, right=22mm of gh] (trk) {Local\origin/main (tracking)};
+\node[box, right=22mm of trk] (loc) {Local\main (ta branche)};
+\draw[arrow] (gh) -- node[above]{\texttt{git fetch}} (trk);
+\draw[arrow] (trk) -- node[above]{\texttt{git merge} / \texttt{git pull}} (loc);
+\draw[arrow, bend left=25] (loc) to node[below]{\texttt{git push}} (gh);
+\end{tikzpicture}</code></pre>
+</div>
+</article>
+</div>
+</div>
+</section> <!-- ========================= 4) BASES (init/clone) — comme toi mais enrichi ========================= --> <section id="bases" class="section section-alt"> <div class="container section-inner"> <div class="section-header"> <h2>4) Les bases (init / clone / status)</h2> <p class="section-subtitle">Créer un dépôt local, ou récupérer un dépôt GitHub proprement.</p> </div>
+
+    <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Initialisation</div>
+      <h3 class="card-title">Créer un dépôt (local)</h3>
+      <p class="card-text">À faire une seule fois, dans le dossier du projet.</p>
+
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Commandes</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-init">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-init">mkdir mon-projet
+cd mon-projet
+git init
+git status</code></pre>
+      </div>
+  
+      <p class="card-text">
+        Ensuite tu peux connecter à GitHub (remote) :
+      </p>
+
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Connecter à GitHub</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-connect-remote">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-connect-remote">git remote add origin https://github.com/USER/REPO.git
+got remote -v </code></pre>
+
+</div>
+</article>
+
+    <article class="card">
+      <div class="card-tag">Clonage</div>
+      <h3 class="card-title">Récupérer un dépôt GitHub (clone)</h3>
+      <p class="card-text">
+        Le <b>clone</b> crée un dossier local avec tout l’historique + le remote <code>origin</code> déjà configuré.
+      </p>
+
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Commandes</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-clone">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-clone">git clone https://github.com/USER/REPO.git
+cd REPO
+git remote -v
+git status</code></pre>
+</div>
+</article>
+</div>
+</div>
+</section> <!-- ========================= 5) WORKFLOW QUOTIDIEN ========================= --> <section id="workflow" class="section"> <div class="container section-inner"> <div class="section-header"> <h2>5) Workflow quotidien (propre)</h2> <p class="section-subtitle">Toujours : comprendre → modifier → add → commit → push (et pull/fetch avant si besoin).</p> </div>
+
+    <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Cycle</div>
+      <h3 class="card-title">Le cycle minimal</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Cycle</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cycle">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-cycle">git status
 git add .
 git commit -m "Message clair"
 git push</code></pre>
+</div>
+      <p class="card-text">
+        <b>Conseil :</b> avant de commencer à bosser, fais souvent :
+      </p>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Avant de bosser</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-before-work">Copier</button>
         </div>
-      </article>
-    </div>
-  </section>
+        <pre class="codebox-pre"><code id="code-before-work">git fetch
+git status
+          git log --oneline --decorate --graph --all
+          </code></pre>
+</div>
+    </article>
 
-  <section class="section section-alt">
-    <div class="container section-inner">
-      <div class="section-header">
-        <h2>3) Branches & merge</h2>
-        <p class="section-subtitle">Isoler une fonctionnalité, puis fusionner proprement.</p>
-      </div>
+        <article class="card">
+      <div class="card-tag">Diff</div>
+      <h3 class="card-title">Comprendre ce que tu vas committer</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Diffs</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-diff">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-diff"># différences non indexées
+git diff
+# différences indexées (prêtes à commit)
+git diff --staged</code></pre>
+</div>
+</article>
+</div>
+</div>
+</section> <!-- ========================= 6) BRANCHES & MERGE (+ TIKZ) ========================= --> <section id="branches" class="section section-alt"> <div class="container section-inner"> <div class="section-header"> <h2>6) Branches, merge, Pull Requests</h2> <p class="section-subtitle">Isoler une modification, la relire, puis fusionner proprement (local ou via GitHub).</p> </div>
+  <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Concept</div>
+      <h3 class="card-title">Une branche, c’est quoi ?</h3>
+      <p class="card-text">
+        Une branche est un <b>pointeur</b> vers un commit. Créer une branche, c’est créer un nouveau pointeur
+        pour travailler sans casser <code>main</code>.
+      </p>
+      <ul class="card-text">
+        <li><b>main</b> : branche “stable”</li>
+        <li><b>feature/...</b> : nouvelle fonctionnalité</li>
+        <li><b>fix/...</b> : correctif</li>
+      </ul>
+    </article>
 
-      <article class="card">
-        <div class="codebox">
-          <div class="codebox-head">
-            <span class="codebox-label">Workflow</span>
-            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-branch">Copier</button>
-          </div>
-          <pre class="codebox-pre"><code id="code-branch">git checkout -b feature/ma-feature
+    <article class="card">
+      <div class="card-tag">Schéma</div>
+      <h3 class="card-title">Branches & merge (TikZ)</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">TikZ — Branching</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="tikz-branching">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="tikz-branching">\begin{tikzpicture}[
+font=\small, >=Latex,
+commit/.style={circle, draw=black!60, fill=black!2, thick, minimum size=6mm},
+arrow/.style={->, thick}
+]
+\node[commit] (c1) {};
+\node[commit, right=12mm of c1] (c2) {};
+\node[commit, right=12mm of c2] (c3) {};
+\node[commit, above right=10mm and 10mm of c2] (f1) {};
+\node[commit, right=12mm of f1] (f2) {};
+\node[commit, right=12mm of c3] (m1) {};
+\draw[arrow] (c1) -- (c2);
+\draw[arrow] (c2) -- (c3);
+\draw[arrow] (c2) -- (f1);
+\draw[arrow] (f1) -- (f2);
+\draw[arrow] (c3) -- (m1);
+\draw[arrow] (f2) -- (m1);
+\node[below=4mm of c2] {main};
+\node[above=4mm of f1] {feature};
+\end{tikzpicture}</code></pre>
+</div>
+</article>
+    <article class="card">
+      <div class="card-tag">Commandes</div>
+      <h3 class="card-title">Workflow “branche → merge” (local)</h3>
 
-# ... modifications ...
-
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Workflow</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-branch">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-branch">git checkout -b feature/ma-feature
+# ... bosser sur la feature ...
+git status
 git add .
-git commit -m "Ajoute X"
+git commit -m "Ajouter ma feature"
+
+# Revenir sur main
 git checkout main
+git pull
 git merge feature/ma-feature
 git push</code></pre>
+</div>
+    </article>
+
+    <article class="card">
+      <div class="card-tag">GitHub</div>
+      <h3 class="card-title">Workflow Pull Request (recommandé)</h3>
+      <p class="card-text">
+        Au lieu de fusionner direct en local, tu pousses ta branche puis tu ouvres une PR sur GitHub.
+        Ça force une relecture, garde l’historique clair, et évite des merges “sales”.
+      </p>
+
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">PR — étapes</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-pr">Copier</button>
         </div>
-      </article>
-    </div>
-  </section>
+        <pre class="codebox-pre"><code id="code-pr">git checkout -b feature/ma-feature
+# ... commits ...
 
-  <section id="cheatsheet" class="section">
-    <div class="container section-inner">
-      <div class="section-header">
-        <h2>Cheat sheet</h2>
-        <p class="section-subtitle">Les commandes qu’on tape tout le temps.</p>
+git push -u origin feature/ma-feature
+
+# Aller sur GitHub et ouvrir une Pull Request
+</code></pre>
       </div>
+    </article>
+  </div>
+</div>
+</section> <!-- ========================= 7) CONFLITS (essentiel) ========================= --> <section id="conflicts" class="section"> <div class="container section-inner"> <div class="section-header"> <h2>7) Conflits : quoi faire (sans paniquer)</h2> <p class="section-subtitle">Un conflit = Git ne sait pas décider entre deux modifications. Tu choisis, tu valides, tu continues.</p> </div>
 
-      <article class="card">
-        <div class="codebox">
-          <div class="codebox-head">
-            <span class="codebox-label">À retenir</span>
-            <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cheat">Copier</button>
-          </div>
-          <pre class="codebox-pre"><code id="code-cheat">git status
-git log --oneline --graph --decorate
-git diff
-git remote -v
-git fetch
-git pull
+    <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Réflexe</div>
+      <h3 class="card-title">La règle d’or</h3>
+      <p class="card-text">
+        <b>Fetch/Pull avant</b> de commencer une grosse modif. Et commits petits + fréquents.
+      </p>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Avant de travailler</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-before-conflict">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-before-conflict">git pull
+git status </code></pre>
+</div>
+    </article>
+  
+        <article class="card">
+      <div class="card-tag">Résolution</div>
+      <h3 class="card-title">Résoudre un conflit (merge)</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Étapes</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-conflict">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-conflict"># tu lances un pull ou un merge -> conflit
+git status
+# éditer les fichiers en conflit, chercher les marqueurs puis : 
+git add . 
+git commit -m "Résoudre conflit entre main et feature/ma-feature"
 git push</code></pre>
+</div>
+</article>
+</div>
+</div>
+</section> <!-- ========================= 8) CHEAT SHEET ========================= --> <section id="cheatsheet" class="section section-alt"> <div class="container section-inner"> <div class="section-header"> <h2>Cheat sheet</h2> <p class="section-subtitle">Les commandes qu’on tape tout le temps (et celles qui sauvent).</p> </div>
+
+    <div class="cards-grid">
+    <article class="card">
+      <div class="card-tag">Essentiel</div>
+      <h3 class="card-title">Lire l’état</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Lecture</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cheat-read">Copier</button>
         </div>
-      </article>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>© Ton site — Cours Git</span>
-      <div class="footer-links">
-        <a href="index.html">Accueil</a>
-        <a href="#bases">Haut</a>
+        <pre class="codebox-pre"><code id="code-cheat-read">git status
+git log --oneline --decorate --graph --all
+git diff 
+git diff --staged
+git remote -v
+git branch 
+git branch -r</code></pre>
       </div>
-    </div>
-  </footer>
+    </article>
 
-  <!-- Toast -->
-  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+        <article class="card">
+      <div class="card-tag">Remote</div>
+      <h3 class="card-title">Remote ↔ Local</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Synchronisation</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cheat-sync">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-cheat-sync">git fetch
+git pull
+git push
 
-  <script src="script.js"></script>
-</body>
-</html>
+# première fois sur une nouvelle branche
+git push -u origin ma-branche</code></pre>
+      </div>
+    </article>
+
+        <article class="card">
+      <div class="card-tag">Sauvetage</div>
+      <h3 class="card-title">Commandes utiles</h3>
+      <div class="codebox">
+        <div class="codebox-head">
+          <span class="codebox-label">Sauver la mise</span>
+          <button class="btn ghost btn-sm copy-btn" type="button" data-copy-target="code-cheat-rescue">Copier</button>
+        </div>
+        <pre class="codebox-pre"><code id="code-cheat-rescue"># mettre de côté temporairement
+git stash
+git stach pop
+
+# annuler des changements locaux (non commités)
+git restore .
+git restore --staged
+
+# voir qui a fait quoi
+git blame fichier.txt</code></pre>
+
+</div>
+</article>
+</div>
+</div>
+</section> <footer class="site-footer"> <div class="container footer-inner"> <span>© Ton site — Cours Git</span> <div class="footer-links"> <a href="index.html">Accueil</a> <a href="#concepts">Haut</a> </div> </div> </footer> <!-- Toast --> <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div> <script src="script.js"></script> </body> </html> 
+

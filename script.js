@@ -206,3 +206,90 @@ function showToast(message) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove("toast--show"), 1400);
 }
+
+(() => {
+  // ====== NAV (mobile) ======
+  const navToggle = document.getElementById("navToggle");
+  const siteNav = document.getElementById("siteNav");
+
+  if (navToggle && siteNav) {
+    navToggle.addEventListener("click", () => {
+      siteNav.classList.toggle("open");
+      navToggle.classList.toggle("open");
+    });
+  }
+
+  // ====== THEME TOGGLE ======
+  const themeToggle = document.getElementById("themeToggle");
+  const root = document.documentElement;
+
+  // Optionnel : mémoriser le thème
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) root.setAttribute("data-theme", savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  }
+
+  // ====== TOAST ======
+  const toastEl = document.getElementById("toast");
+  let toastTimer = null;
+
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1800);
+  }
+
+  // ====== COPY BUTTONS ======
+  async function copyText(text) {
+    // navigator.clipboard nécessite HTTPS (ok sur GitHub Pages)
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      // fallback
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+  }
+
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".copy-btn");
+    if (!btn) return;
+
+    const targetId = btn.getAttribute("data-copy-target");
+    if (!targetId) return;
+
+    const code = document.getElementById(targetId);
+    if (!code) {
+      toast("Bloc introuvable");
+      return;
+    }
+
+    const text = code.innerText.trim();
+    const ok = await copyText(text);
+
+    if (ok) toast("Copié ✓");
+    else toast("Impossible de copier");
+  });
+})();
